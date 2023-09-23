@@ -29,12 +29,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/', [PostController::class, 'index'])->name('post.index');
+Route::get('posts/{post}', [PostController::class, 'show'])->whereNumber('post')->name('post.show');
+
+
 Route::prefix('posts')
     ->name('post.')
+    ->middleware('auth:web')
     ->controller(PostController::class)
     ->group(function () {
-        Route::get('', 'index')->name('index');
-        Route::get('{post}', 'show')->whereNumber('post')->name('show');
         Route::get('create', 'create')->name('create');
         Route::post('', 'store')->name('store');
         Route::get('{post}/edit', 'edit')->whereNumber('post')->name('edit');
