@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ $title }}</title>
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
@@ -13,7 +14,6 @@
         <nav class="navbar navbar-info bg-light">
             <div class="container d-flex justify-content-between">
                 <a class="navbar-brand" href="{{route('post.index')}}">Laravel掲示板</a>
-
                 <div>
                     @if (Auth::check())
                         <span class="me-3">{{ Auth::user()->name }}</span>

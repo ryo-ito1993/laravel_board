@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,5 +45,11 @@ Route::prefix('posts')
         Route::put('{post}', 'update')->whereNumber('post')->name('update');
         Route::delete('{post}', 'destroy')->whereNumber('post')->name('destroy');
 });
+
+Route::get('posts/{post}/comments/create', [CommentController::class, 'create'])->name('comment.create');
+Route::post('posts/{post}/comments', [CommentController::class, 'store'])->name('comment.store');
+Route::get('comments/{comment}/edit', [CommentController::class, 'edit'])->name('comment.edit');
+Route::put('comments/{comment}', [CommentController::class, 'update'])->name('comment.update');
+Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');
 
 require __DIR__.'/auth.php';

@@ -4,7 +4,7 @@
     </x-slot:title>
     <div class="container">
         <div class="row">
-            <div class="col-md-8 mx-auto">
+            <div class="col-md-10 mx-auto">
                 <h2 class="mb-4">投稿一覧</h2>
                 @if (session('message'))
                     <x-alert class="alert alert-info">

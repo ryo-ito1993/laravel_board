@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\View;
 use App\Models\Post;
 
@@ -14,7 +12,7 @@ class PostController extends Controller
 {
     public function index(): View
     {
-        $posts = Post::all();
+        $posts = Post::with('comments')->get();
 
         return view('post/index', ['posts' => $posts]);
     }
@@ -31,7 +29,6 @@ class PostController extends Controller
 
     public function store(PostRequest $request): RedirectResponse
     {
-        // 書籍データ登録用のオブジェクトを作成する
         $post = new Post();
 
         // リクエストオブジェクトからパラメータを取得
@@ -42,7 +39,6 @@ class PostController extends Controller
         // 保存
         $post->save();
 
-        // 登録完了後book.indexにリダイレクトする
         return redirect(route('post.index'))
         ->with('message', $post->title . 'を追加しました。');
     }
