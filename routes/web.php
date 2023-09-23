@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::prefix('posts')
+    ->name('post.')
+    ->controller(PostController::class)
+    ->group(function () {
+        Route::get('', 'index')->name('index');
+        Route::get('{post}', 'show')->whereNumber('post')->name('show');
+        Route::get('create', 'create')->name('create');
+        Route::post('', 'store')->name('store');
+        Route::get('{post}/edit', 'edit')->whereNumber('post')->name('edit');
+        Route::put('{post}', 'update')->whereNumber('post')->name('update');
+        Route::delete('{post}', 'destroy')->whereNumber('post')->name('destroy');
 });
 
 require __DIR__.'/auth.php';
