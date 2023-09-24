@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -52,5 +53,31 @@ class User extends Authenticatable
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function likedPosts(): BelongsToMany
+    {
+        return $this->belongsToMany(Post::class, 'likes')->withTimestamps();
+    }
+
+    public function isLike($postId)
+    {
+        return $this->likedPosts()->where('post_id',$postId)->exists();
+    }
+
+    public function like($postId)
+    {
+        if($this->isLike($postId)){
+        } else {
+        $this->likedPosts()->attach($postId);
+        }
+    }
+
+    public function unlike($postId)
+    {
+        if($this->isLike($postId)){
+        $this->likedPosts()->detach($postId);
+        } else {
+        }
     }
 }

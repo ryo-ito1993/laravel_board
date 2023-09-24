@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CommentRequest;
 use App\Models\Post;
 use App\Models\Comment;
 
@@ -17,7 +17,7 @@ class CommentController extends Controller
         return view('comment/create', compact('post'));
     }
 
-    public function store(Request $request, Post $post): RedirectResponse
+    public function store(CommentRequest $request, Post $post): RedirectResponse
     {
         $comment = new Comment();
 
@@ -37,7 +37,7 @@ class CommentController extends Controller
         return view('comment.edit', compact('comment'));
     }
 
-    public function update(Request $request, Comment $comment): RedirectResponse
+    public function update(CommentRequest $request, Comment $comment): RedirectResponse
     {
         $comment->comment = $request->comment;
         $comment->save();

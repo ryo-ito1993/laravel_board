@@ -6,6 +6,7 @@
             @if (Auth::check())
                 <th>更新</th>
                 <th>削除</th>
+                <th>いいね</th>
                 <th>コメント</th>
                 <th>コメント一覧</th>
                 <th>コメント編集</th>
@@ -30,6 +31,20 @@
                                 @csrf
                                 @method('DELETE')
                                 <input type="submit" class="btn btn-danger" value="削除">
+                            </form>
+                        @endif
+                    </td>
+                    <td>
+                        @if(auth()->user()->isLike($post->id))
+                            <form action="{{ route('like.destroy', $post) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <input type="submit" class="btn btn-warning" value="いいね取消">
+                            </form>
+                        @else
+                            <form action="{{ route('like.store', $post) }}" method="POST">
+                                @csrf
+                                <input type="submit" class="btn btn-info" value="いいね">
                             </form>
                         @endif
                     </td>

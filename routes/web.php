@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,5 +52,8 @@ Route::post('posts/{post}/comments', [CommentController::class, 'store'])->name(
 Route::get('comments/{comment}/edit', [CommentController::class, 'edit'])->name('comment.edit');
 Route::put('comments/{comment}', [CommentController::class, 'update'])->name('comment.update');
 Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');
+
+Route::post('like/{post}', [LikeController::class, 'store'])->name('like.store');
+Route::delete('/unlike/{post}',[LikeController::class,'destroy'])->name('like.destroy');
 
 require __DIR__.'/auth.php';
