@@ -1,6 +1,5 @@
 <?php
 return [
-    // エラーメッセージを設定
     'exists' => '正しい :attribute を選択してください。',
     'max' => [
         'numeric' => ':attribute は :max 以下を入力してください。',
@@ -14,7 +13,6 @@ return [
     'required' => ':attribute は必須入力です',
     'unique' => ':attribute は既に登録されています。',
 
-    // キー名も日本語に変更
     'attributes' => [
         'title' => 'タイトル',
         'comment' => '内容',
